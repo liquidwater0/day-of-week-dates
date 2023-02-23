@@ -60,7 +60,9 @@ function App() {
 					/>
 				</div>
 				<div>
+					<label htmlFor="dayOfWeekSelect">Day of Week</label>
 					<select 
+						id='dayOfWeekSelect'
 						defaultValue={dayOfWeek}
 						onChange={({ target }) => setDayOfWeek(target.value)} 
 					>
