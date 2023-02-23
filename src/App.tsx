@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import "./scss/App.scss";
 
-//Fix dates on date inputs being 1 day off
-
 function App() {
 	const [dates, setDates] = useState<string[]>([]);
 	const [startDate, setStartDate] = useState<Date>(() => {
@@ -47,7 +45,10 @@ function App() {
 						id='startDateInput'
 						type="date"
 						defaultValue={formatDate(startDate)}
-						onChange={({ target }) => setStartDate(new Date(target.value))}
+						onChange={({ target }) => {
+							const [year, month, day] = target.value.split("-");
+							setStartDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)));
+						}}
 					/>
 				</div>
 				<div>
@@ -56,7 +57,10 @@ function App() {
 						id='endDateInput'
 						type="date"
 						defaultValue={formatDate(endDate)}
-						onChange={({ target }) => setEndDate(new Date(target.value))}
+						onChange={({ target }) => {
+							const [year, month, day] = target.value.split("-");
+							setEndDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)));
+						}}
 					/>
 				</div>
 				<div>
