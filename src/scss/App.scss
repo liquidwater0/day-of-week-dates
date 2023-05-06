@@ -1,3 +1,4 @@
+@use "./button" as *;
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
 *, *::before, *::after {
@@ -96,20 +97,6 @@ button {
     transition: background-color 250ms;
 
     &:focus {
-        background-color: var(--primary-color-2);
-    }
-}
-
-.button {
-    background-color: var(--primary-color-1);
-    padding: 0.75em 1.5em;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 1rem;
-    border-radius: 0.35em;
-    transition: background-color 250ms;
-
-    &:hover {
         background-color: var(--primary-color-2);
     }
 }

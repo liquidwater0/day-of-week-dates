@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import "./scss/App.scss";
 import DateButton from './components/DateButton';
+import Button from './components/Button';
 
 function App() {
 	const [dates, setDates] = useState<string[]>([]);
@@ -76,12 +77,11 @@ function App() {
 						}}
 					/>
 				</div>
-				<button 
-					className='button'
-					onClick={getDatesForDayOfWeek}
-				>
+				
+				<Button onClick={getDatesForDayOfWeek}>
 					Get Dates
-				</button>
+				</Button>
+
 				<div className='input-container'>
 					<label htmlFor="endDateInput">To</label>
 					<input 
