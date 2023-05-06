@@ -9,7 +9,6 @@ function App() {
 	});
 	const [endDate, setEndDate] = useState<Date>(new Date());
 	const [dayOfWeek, setDayOfWeek] = useState<string>("sunday");
-	const [displayedDayOfWeek, setDisplayedDayOfWeek] = useState<string>(dayOfWeek);
 
 	function getDatesForDayOfWeek() {
 		const daysOfWeeks = new Map([["sunday", 0], ["monday", 1], ["tuesday", 2], ["wednesday", 3], ["thursday", 4], ["friday", 5], ["saturday", 6]]);
@@ -25,7 +24,6 @@ function App() {
 		}
 
 		setDates(datesArray);
-		setDisplayedDayOfWeek(dayOfWeek);
 	}
 
 	function formatDate(date: Date) {
@@ -38,9 +36,37 @@ function App() {
 	
 	return (
 		<>
-			<header className='header'>
-				<div>
-					<label htmlFor="startDateInput">Start Date</label>
+			<header className='header container'>
+				Dates on
+				<select 
+					id='dayOfWeekSelect'
+					defaultValue={dayOfWeek}
+					onChange={({ target }) => setDayOfWeek(target.value)} 
+				>
+					<option value="sunday">Sunday</option>
+					<option value="monday">Monday</option>
+					<option value="tuesday">Tuesday</option>
+					<option value="wednesday">Wednesday</option>
+					<option value="thursday">Thursday</option>
+					<option value="friday">Friday</option>
+					<option value="saturday">Saturday</option>
+				</select>
+			</header>
+
+			<main className='main container'>
+				{dates.map(date => 
+					<div 
+						key={date}
+						className='date' 
+					>
+						{ date }
+					</div>
+				)}
+			</main>
+
+			<footer className='footer container'>
+				<div className='input-container'>
+					<label htmlFor="startDateInput">From</label>
 					<input 
 						id='startDateInput'
 						type="date"
@@ -51,8 +77,14 @@ function App() {
 						}}
 					/>
 				</div>
-				<div>
-					<label htmlFor="endDateInput">End Date</label>
+				<button 
+					className='button'
+					onClick={getDatesForDayOfWeek}
+				>
+					Get Dates
+				</button>
+				<div className='input-container'>
+					<label htmlFor="endDateInput">To</label>
 					<input 
 						id='endDateInput'
 						type="date"
@@ -63,42 +95,6 @@ function App() {
 						}}
 					/>
 				</div>
-				<div>
-					<label htmlFor="dayOfWeekSelect">Day of Week</label>
-					<select 
-						id='dayOfWeekSelect'
-						defaultValue={dayOfWeek}
-						onChange={({ target }) => setDayOfWeek(target.value)} 
-					>
-						<option value="sunday">Sunday</option>
-						<option value="monday">Monday</option>
-						<option value="tuesday">Tuesday</option>
-						<option value="wednesday">Wednesday</option>
-						<option value="thursday">Thursday</option>
-						<option value="friday">Friday</option>
-						<option value="saturday">Saturday</option>
-					</select>
-				</div>
-			</header>
-
-			<main className='main'>
-				<h1>Dates on { displayedDayOfWeek }</h1>
-				<div className='dates-container container'>
-					{
-						dates.map(date => {
-							return <div className='date' key={date}>{ date }</div>
-						})
-					}
-				</div>
-			</main>
-
-			<footer className='footer'>
-				<button 
-					className='button'
-					onClick={getDatesForDayOfWeek}
-				>
-					Get Dates
-				</button>
 			</footer>
     	</>
   	);
