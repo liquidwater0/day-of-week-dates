@@ -56,12 +56,14 @@ function App() {
 			</header>
 
 			<main className='main container'>
-				{dates.map(date => 
-					<DateButton
-						key={date}
-						date={date}
-					/>
-				)}
+				<div className="dates-container">
+					{dates.map(date => 
+						<DateButton
+							key={date}
+							date={date}
+						/>
+					)}
+				</div>
 			</main>
 
 			<footer className='footer container'>
@@ -77,7 +79,7 @@ function App() {
 						}}
 					/>
 				</div>
-				
+
 				<Button onClick={getDatesForDayOfWeek}>
 					Get Dates
 				</Button>
