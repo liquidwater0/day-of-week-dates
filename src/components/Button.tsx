@@ -34,16 +34,13 @@ export default function Button({ children, className, onClick, ...props }: Butto
             { ...props }
         >
             { children }
-            {ripples.map(ripple =>
+            {ripples.map(({ id, x, y }) =>
                 <span 
-                    key={ripple.id} 
+                    key={id} 
                     className="ripple"
+                    style={{ left: x, top: y }}
                     onAnimationEnd={() => {
-                        setRipples(prevRipples => prevRipples.filter(r => r.id !== ripple.id))
-                    }}
-                    style={{
-                        left: ripple.x,
-                        top: ripple.y,
+                        setRipples(prevRipples => prevRipples.filter(ripple => ripple.id !== id))
                     }}
                 />  
             )}
