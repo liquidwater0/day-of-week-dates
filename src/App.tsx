@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import "./scss/App.scss";
+import DateButton from './components/DateButton';
 
 function App() {
 	const [dates, setDates] = useState<string[]>([]);
@@ -55,12 +56,10 @@ function App() {
 
 			<main className='main container'>
 				{dates.map(date => 
-					<div 
+					<DateButton
 						key={date}
-						className='date' 
-					>
-						{ date }
-					</div>
+						date={date}
+					/>
 				)}
 			</main>
 
