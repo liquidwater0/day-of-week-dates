@@ -54,6 +54,7 @@ html {
 body {
     background-color: var(--theme-1);
     color: white;
+    overflow: hidden;
 }
 
 button {
@@ -117,4 +118,13 @@ button {
     background-color: var(--theme-2);
     padding: 1.5rem;
     border-radius: 2rem 2rem 0 0;
+}
+
+@media (max-width: 550px) {
+    .footer {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 1.5rem;
+    }
 }

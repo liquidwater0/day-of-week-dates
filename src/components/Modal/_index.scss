@@ -1,6 +1,5 @@
 .modal-container {
     --modal-width: 30rem;
-    --modal-height: 30rem;
     --modal-padding: 1rem;
     --transition-time: 250ms;
 
@@ -42,7 +41,7 @@
         grid-template-rows: max-content 1fr max-content;
         background-color: var(--theme-1);
         width: var(--modal-width);
-        height: var(--modal-height);
+        max-height: 80%;
         border-radius: 1rem;
         padding: 0 var(--modal-padding);
         z-index: 1;
@@ -61,10 +60,8 @@
     }
 
     .modal-body {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
         gap: 1.5rem;
         padding: var(--modal-padding) 0;
     }
@@ -77,10 +74,9 @@
     }
 
     .modal-content-group {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: grid;
+        grid-template-rows: max-content 1fr;
+        place-items: center;
         gap: 1rem;
 
         .modal-content-group-title {
@@ -91,6 +87,8 @@
             background-color: var(--theme-2);
             padding: 1rem;
             border-radius: 1rem;
+            max-height: 12rem;
+            overflow: auto;
         }
     }
 }
@@ -113,4 +111,16 @@
 @keyframes modal-scale-down {
     0% { scale: 1 }
     100% { scale: 0 }
+}
+
+@media (max-height: 850px) {
+    .modal-content-group-content {
+        max-height: 5rem !important;
+    }
+}
+
+@media (max-height: 550px) {
+    .modal-content-group-content {
+        max-height: 2rem !important;
+    }
 }
