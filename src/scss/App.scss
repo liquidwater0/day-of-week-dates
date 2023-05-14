@@ -1,4 +1,5 @@
-@use "./button" as *;
+@use "../components/Button/" as *;
+@use "../components/DateButton/" as *;
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 
 *, *::before, *::after {
@@ -91,20 +92,6 @@ button {
     gap: 1rem;
     padding: 3.5rem 0;
     overflow-y: auto;
-}
-
-.date-button {
-    background-color: var(--theme-2);
-    padding: 0.75em 1.5em;
-    border-radius: 1000px;
-    font-size: 1rem;
-    font-weight: bold;
-    letter-spacing: 0.05em;
-    transition: background-color 250ms;
-
-    &:focus {
-        background-color: var(--primary-color-2);
-    }
 }
 
 .input-container {

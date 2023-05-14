@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import "./scss/App.scss";
-import DateButton from './components/DateButton';
 import Button from './components/Button';
+import DateButton from './components/DateButton';
 
 function App() {
 	const [dates, setDates] = useState<string[]>([]);
