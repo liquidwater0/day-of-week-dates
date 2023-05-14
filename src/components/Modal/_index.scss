@@ -10,13 +10,13 @@
     align-items: center;
     inset: 0;
     pointer-events: all;
+    backdrop-filter: blur(0.1rem);
     animation: modal-fade-in var(--transition-time) forwards;
 
     .overlay {
         position: absolute;
         inset: 0;
         background-color: hsla(0, 0%, 0%, 0.8);
-        backdrop-filter: blur(0.1rem);
     }
 
     .modal {
