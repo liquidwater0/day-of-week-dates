@@ -24,21 +24,22 @@ export default function Modal({ date, setIsOpen }: ModalProps) {
         return `${month} ${day}`;
     });
     const [yearString] = useState<string>(date.getFullYear().toString());
-    const [dateFact, setDateFact] = useState<string>("Loading fact..");
+    const [dateFact, setDateFact] = useState<string>("Loading fact...");
     const [yearFact, setYearFact] = useState<string>("Loading fact...");
 
     useEffect(() => {
-        const dateFactUrl = `http://numbersapi.com/${date.getMonth() + 1}/${date.getDate()}/date/`;
-        const yearFactUrl = `http://numbersapi.com/${date.getFullYear()}/year/`;
+        const dateFactUrl = `http://numbersapi.com/${date.getMonth() + 1}/${date.getDate()}/date`;
+        const yearFactUrl = `http://numbersapi.com/${date.getFullYear()}/year`;
+        const errorMessage = "Error loading fact!";
 
         fetch(dateFactUrl)
             .then(res => res.text())
             .then(setDateFact)
-            .catch(() => setDateFact("Error loading fact!"));
+            .catch(() => setDateFact(errorMessage));
         fetch(yearFactUrl)
             .then(res => res.text())
             .then(setYearFact)
-            .catch(() => setYearFact("Error loading fact!"));
+            .catch(() => setYearFact(errorMessage));
     }, []);
 
     return createPortal(
