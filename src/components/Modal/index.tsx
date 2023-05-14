@@ -14,6 +14,9 @@ const MODAL_STATES = {
     CLOSING: "closing"
 } as const;
 
+const loadingMessage = "Loading fact...";
+const errorMessage = "Error loading fact!";
+
 export default function Modal({ date, setIsOpen }: ModalProps) {
     const [modalState, setModalState] = useState<string>(MODAL_STATES.OPENING);
     const [dateString] = useState<string>(() => {
@@ -24,13 +27,12 @@ export default function Modal({ date, setIsOpen }: ModalProps) {
         return `${month} ${day}`;
     });
     const [yearString] = useState<string>(date.getFullYear().toString());
-    const [dateFact, setDateFact] = useState<string>("Loading fact...");
-    const [yearFact, setYearFact] = useState<string>("Loading fact...");
+    const [dateFact, setDateFact] = useState<string>(loadingMessage);
+    const [yearFact, setYearFact] = useState<string>(loadingMessage);
 
     useEffect(() => {
         const dateFactUrl = `http://numbersapi.com/${date.getMonth() + 1}/${date.getDate()}/date`;
         const yearFactUrl = `http://numbersapi.com/${date.getFullYear()}/year`;
-        const errorMessage = "Error loading fact!";
 
         fetch(dateFactUrl)
             .then(res => res.text())
@@ -44,7 +46,7 @@ export default function Modal({ date, setIsOpen }: ModalProps) {
 
     return createPortal(
         <div 
-            className={`modal-container`} 
+            className="modal-container"
             data-state={modalState}
             onAnimationEnd={() => {
                 if (modalState === MODAL_STATES.OPENING) {
