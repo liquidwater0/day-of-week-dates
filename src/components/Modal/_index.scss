@@ -1,0 +1,99 @@
+.modal-container {
+    --modal-width: 30rem;
+    --modal-height: 30rem;
+    --modal-padding: 1rem;
+    --transition-time: 250ms;
+
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    inset: 0;
+    pointer-events: all;
+    animation: modal-fade-in var(--transition-time) forwards;
+
+    .overlay {
+        position: absolute;
+        inset: 0;
+        background-color: hsla(0, 0%, 0%, 0.8);
+        backdrop-filter: blur(0.1rem);
+    }
+
+    .modal {
+        display: grid;
+        grid-template-rows: max-content 1fr max-content;
+        background-color: var(--theme-1);
+        width: var(--modal-width);
+        height: var(--modal-height);
+        border-radius: 1rem;
+        padding: 0 var(--modal-padding);
+        z-index: 1;
+        animation: modal-scale-up var(--transition-time) forwards;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .modal-title {
+            background-color: var(--theme-2);
+            padding: 0.5rem 1.25rem;
+            border-radius: 0 0 1rem 1rem;
+        }
+    }
+
+    .modal-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+        padding: var(--modal-padding) 0;
+    }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-bottom: var(--modal-padding);
+    }
+
+    .modal-content-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+
+        .modal-content-group-title {
+            font-size: 1.75rem;
+        }
+
+        .modal-content-group-content {
+            background-color: var(--theme-2);
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+    }
+}
+
+@keyframes modal-fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes modal-scale-up {
+    0% {
+        scale: 0;
+    }
+
+    100% {
+        scale: 1;
+    }
+}
