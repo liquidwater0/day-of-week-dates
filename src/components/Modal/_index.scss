@@ -9,9 +9,27 @@
     justify-content: center;
     align-items: center;
     inset: 0;
-    pointer-events: all;
     backdrop-filter: blur(0.1rem);
-    animation: modal-fade-in var(--transition-time) forwards;
+
+    &[data-state="open"] {
+        pointer-events: all;
+    }
+    
+    &[data-state="opening"] {
+        animation: modal-fade-in var(--transition-time) forwards;
+
+        .modal {
+            animation: modal-scale-up var(--transition-time) forwards;
+        }
+    }
+
+    &[data-state="closing"] {
+        animation: modal-fade-out var(--transition-time) forwards;
+
+        .modal {
+            animation: modal-scale-down var(--transition-time) forwards;
+        }
+    }
 
     .overlay {
         position: absolute;
@@ -28,7 +46,6 @@
         border-radius: 1rem;
         padding: 0 var(--modal-padding);
         z-index: 1;
-        animation: modal-scale-up var(--transition-time) forwards;
     }
 
     .modal-header {
@@ -79,21 +96,21 @@
 }
 
 @keyframes modal-fade-in {
-    0% {
-        opacity: 0;
-    }
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
 
-    100% {
-        opacity: 1;
-    }
+@keyframes modal-fade-out {
+    0% { opacity: 1 }
+    100% { opacity: 0 }
 }
 
 @keyframes modal-scale-up {
-    0% {
-        scale: 0;
-    }
+    0% { scale: 0 }
+    100% { scale: 1 }
+}
 
-    100% {
-        scale: 1;
-    }
+@keyframes modal-scale-down {
+    0% { scale: 1 }
+    100% { scale: 0 }
 }

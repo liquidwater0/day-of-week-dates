@@ -8,7 +8,14 @@ type ModalProps = {
     setIsOpen: Dispatch<SetStateAction<boolean>>
 }
 
+const MODAL_STATES = {
+    OPEN: "open",
+    OPENING: "opening",
+    CLOSING: "closing"
+} as const;
+
 export default function Modal({ date, setIsOpen }: ModalProps) {
+    const [modalState, setModalState] = useState<string>(MODAL_STATES.OPENING);
     const [dateString] = useState<string>(() => {
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
         const month = months[date.getMonth()];
@@ -30,7 +37,19 @@ export default function Modal({ date, setIsOpen }: ModalProps) {
     }, []);
 
     return createPortal(
-        <div className="modal-container">
+        <div 
+            className={`modal-container`} 
+            data-state={modalState}
+            onAnimationEnd={() => {
+                if (modalState === MODAL_STATES.OPENING) {
+                    setModalState(MODAL_STATES.OPEN);
+                }
+
+                if (modalState === MODAL_STATES.CLOSING) {
+                    setIsOpen(false);
+                }
+            }}
+        >
             <div 
                 className="overlay"
                 onClick={() => setIsOpen(false)}
@@ -53,7 +72,7 @@ export default function Modal({ date, setIsOpen }: ModalProps) {
                 </div>
 
                 <footer className="modal-footer">
-                    <Button onClick={() => setIsOpen(false)}>
+                    <Button onClick={() => setModalState(MODAL_STATES.CLOSING)}>
                         Close
                     </Button>
                 </footer>
