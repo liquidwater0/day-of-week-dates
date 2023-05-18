@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import "./scss/App.scss";
+import { getFormattedDate } from './utils/getFormattedDate';
 import Button from './components/Button';
 import DateButton from './components/DateButton';
+import DateInput from './components/DateInput';
 
 function App() {
 	const [dates, setDates] = useState<string[]>([]);
@@ -26,14 +28,6 @@ function App() {
 		}
 
 		setDates(datesArray);
-	}
-
-	function formatDate(date: Date) {
-		const month = (date.getMonth() + 1).toString().padStart(2, "0");
-		const day = date.getDate().toString().padStart(2, "0");
-		const year = date.getFullYear();
-
-		return `${year}-${month}-${day}`;
 	}
 	
 	return (
@@ -72,7 +66,7 @@ function App() {
 					<input 
 						id='startDateInput'
 						type="date"
-						defaultValue={formatDate(startDate)}
+						defaultValue={getFormattedDate(startDate)}
 						onChange={({ target }) => {
 							const [year, month, day] = target.value.split("-");
 							setStartDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)));
@@ -86,10 +80,18 @@ function App() {
 
 				<div className='input-container'>
 					<label htmlFor="endDateInput">To</label>
+					{/* <DateInput
+						id='endDateInput'
+						defaultValue={getFormattedDate(endDate)}
+						onChange={(event) => {
+							const [year, month, day] = (event.target as HTMLInputElement).value.split("-");
+							setEndDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)));
+						}}
+					/> */}
 					<input 
 						id='endDateInput'
 						type="date"
-						defaultValue={formatDate(endDate)}
+						defaultValue={getFormattedDate(endDate)}
 						onChange={({ target }) => {
 							const [year, month, day] = target.value.split("-");
 							setEndDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)));

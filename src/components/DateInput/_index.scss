@@ -1,0 +1,52 @@
+.date-input {
+    --input-padding: 0.5em;
+    --input-font-size: 1.25rem;
+
+    display: flex;
+    background-color: var(--theme-1);
+    border-radius: 0.25rem;
+    max-width: 15rem;
+    transition: 
+        outline 250ms, 
+        color 250ms;
+    
+    &[data-valid="false"] {
+        outline: 2px solid red;
+        
+        input {
+            color: red;
+        }
+    }
+
+    input {
+        outline: none;
+        border: none;
+        text-align: center;
+        font-size: var(--input-font-size);
+        padding: var(--input-padding);
+        background-color: transparent;
+        width: 100%;
+
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            opacity: 0;
+            pointer-events: none;
+        }
+    }
+
+    .date-input-section {
+        position: relative;
+
+        &:not(:last-of-type)::after {
+            content: "";
+            position: absolute;
+            width: 0.25rem;
+            height: 75%;
+            top: 50%;
+            right: 10%;
+            transform: translateY(-50%);
+            background-color: var(--theme-4);
+            border-radius: 1000px;
+        }
+    }
+}
