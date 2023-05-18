@@ -63,12 +63,11 @@ function App() {
 			<footer className='footer container'>
 				<div className='input-container'>
 					<label htmlFor="startDateInput">From</label>
-					<input 
+					<DateInput 
 						id='startDateInput'
-						type="date"
 						defaultValue={getFormattedDate(startDate)}
-						onChange={({ target }) => {
-							const [year, month, day] = target.value.split("-");
+						onDateChange={date => {
+							const [year, month, day] = date.split("-");
 							setStartDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)));
 						}}
 					/>
@@ -80,20 +79,11 @@ function App() {
 
 				<div className='input-container'>
 					<label htmlFor="endDateInput">To</label>
-					{/* <DateInput
+					<DateInput
 						id='endDateInput'
 						defaultValue={getFormattedDate(endDate)}
-						onChange={(event) => {
-							const [year, month, day] = (event.target as HTMLInputElement).value.split("-");
-							setEndDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)));
-						}}
-					/> */}
-					<input 
-						id='endDateInput'
-						type="date"
-						defaultValue={getFormattedDate(endDate)}
-						onChange={({ target }) => {
-							const [year, month, day] = target.value.split("-");
+						onDateChange={date => {
+							const [year, month, day] = date.split("-");
 							setEndDate(new Date(parseInt(year), parseInt(month) - 1, parseInt(day)));
 						}}
 					/>

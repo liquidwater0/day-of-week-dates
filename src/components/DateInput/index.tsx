@@ -1,11 +1,14 @@
 import type { HTMLAttributes, ChangeEvent } from 'react';
 import { useState, useEffect, useRef } from 'react';
+import { useFirstRenderEffect } from '../../hooks/useFirstRenderEffect';
 import { checkValidDate } from '../../utils/checkValidDate';
+import { getFormattedDate } from '../../utils/getFormattedDate';
 
-type DateInputProps = HTMLAttributes<HTMLInputElement>;
+type DateInputProps = {
+    onDateChange?: (date: string) => void
+} & HTMLAttributes<HTMLInputElement>;
 
-//Fix valid state not working properly
-export default function DateInput({ ...props }: DateInputProps) {
+export default function DateInput({ onDateChange, ...props }: DateInputProps) {
     const dateInputRef = useRef<HTMLInputElement>(null!);
 
     const monthInputRef = useRef<HTMLInputElement>(null!);
@@ -16,47 +19,61 @@ export default function DateInput({ ...props }: DateInputProps) {
     const [day, setDay] = useState<number>(0);
     const [year, setYear] = useState<number>(0);
 
-    const [isValid, setIsValid] = useState<boolean>();
+    const [isValid, setIsValid] = useState<boolean>(true);
 
     useEffect(() => {
         const dateInput = dateInputRef.current;
         const [year, month, day] = dateInput.value.split("-");
+        const date = new Date(dateInput.value);
         
         setYear(+year);
         setMonth(+month);
         setDay(+day);
-    }, []);
 
-    useEffect(() => {
-        const dateInput = dateInputRef.current;
-
-        if (checkValidDate(new Date(dateInput.value))) {
+        if (checkValidDate(new Date(date))) {
             setIsValid(true);
         } else {
             setIsValid(false);
         }
+    }, []);
+
+    useFirstRenderEffect(() => {
+        const dateInput = dateInputRef.current;
+        const date = new Date(`${year}-${month}-${day}`);
+
+        if (checkValidDate(date)) {
+            setIsValid(true);
+        } else {
+            setIsValid(false);
+        }
+        
+        dateInput.value = getFormattedDate(date);
+
+        if (onDateChange) {
+            onDateChange(dateInput.value);
+        }
     }, [month, day, year]);
 
-    function handleMonthChange(event: ChangeEvent) {
-        const value = (event.target as HTMLInputElement).value;
+    function handleMonthChange(event: ChangeEvent<HTMLInputElement>) {
+        const value = event.target.value;
         setMonth(+value);
 
-        if (monthInputRef.current.value.length >= 2) {
-            dayInputRef.current.focus();
-        }
+        // if (monthInputRef.current.value.length >= 2) {
+        //     dayInputRef.current.focus();
+        // }
     }
 
-    function handleDayChange(event: ChangeEvent) {
-        const value = (event.target as HTMLInputElement).value;
+    function handleDayChange(event: ChangeEvent<HTMLInputElement>) {
+        const value = event.target.value;
         setDay(+value);
 
-        if (dayInputRef.current.value.length >= 2) {
-            yearInputRef.current.focus();
-        }
+        // if (dayInputRef.current.value.length >= 2) {
+        //     yearInputRef.current.focus();
+        // }
     }
 
-    function handleYearChange(event: ChangeEvent) {
-        const value = (event.target as HTMLInputElement).value;
+    function handleYearChange(event: ChangeEvent<HTMLInputElement>) {
+        const value = event.target.value;
         setYear(+value);
     }
 
